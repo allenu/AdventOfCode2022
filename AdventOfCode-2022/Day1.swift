@@ -26,7 +26,8 @@ enum Mode {
     case readingRun(Run)
 }
 
-// Represents the maximum integers we've found so far.
+// Represents the maximum total we've found so far, along with its index
+// for easy lookup later.
 struct MaxFound {
     let index: Int
     let total: Int
@@ -43,7 +44,8 @@ struct MaxFound {
 // allow us to know at any moment what our maximum is thus far and avoid having
 // to enumerate the list more than once.
 struct State {
-    let elvesFound: Int
+    // An array of all the calories per elf we've encountered thus far.
+    let elfCalories: [Int]
     
     let mode: Mode
     let maxFound: MaxFound?
@@ -61,7 +63,7 @@ struct State {
                 let potentialNewMaxFound = MaxFound(index: run.index, total: run.total)
                 let newMaxFound = potentialNewMaxFound.merge(previousMax: self.maxFound)
 
-                return .init(elvesFound: self.elvesFound + 1,
+                return .init(elfCalories: self.elfCalories + [run.total],
                              mode: .readingBlanks,
                              maxFound: newMaxFound)
             }
@@ -71,14 +73,14 @@ struct State {
             switch mode {
             case .readingBlanks:
                 // Started a new run with this value
-                newRun = Run(index: self.elvesFound, total: value)
+                newRun = Run(index: self.elfCalories.count, total: value)
                 
             case .readingRun(let existingRun):
                 // Add to the existing run
                 newRun = Run(index: existingRun.index, total: existingRun.total + value)
             }
 
-            return .init(elvesFound: self.elvesFound,
+            return .init(elfCalories: self.elfCalories,
                          mode: .readingRun(newRun),
                          maxFound: self.maxFound)
         } else {
@@ -103,19 +105,21 @@ func day1(inputUrl: URL) {
 
     let lines = inputString.components(separatedBy: .newlines)
 
-    let initialState = State(elvesFound: 0,
+    let initialState = State(elfCalories: [],
                              mode: .readingBlanks,
                              maxFound: nil)
     
-    let result = lines.reduce(initialState, { previousState, line in
+    let reducedState = lines.reduce(initialState, { previousState, line in
         return previousState.nextState(line: line)
     })
 
+    let finalState: State
     let maxFound: MaxFound?
     
-    switch result.mode {
+    switch reducedState.mode {
     case .readingBlanks:
-        maxFound = result.maxFound
+        maxFound = reducedState.maxFound
+        finalState = reducedState
         
     case .readingRun(let run):
         // We've ended the list with an open run. This represents the last elf
@@ -125,12 +129,20 @@ func day1(inputUrl: URL) {
         // max thus far in the complete list
         
         let potentialNewMaxFound = MaxFound(index: run.index, total: run.total)
-        maxFound = potentialNewMaxFound.merge(previousMax: result.maxFound)
+        maxFound = potentialNewMaxFound.merge(previousMax: reducedState.maxFound)
+        
+        finalState = .init(elfCalories: reducedState.elfCalories + [run.total], mode: .readingBlanks, maxFound: maxFound)
     }
 
-    if let maxFound = maxFound {
+    // For Day 1
+    if let maxFound = finalState.maxFound {
         print("Elf at index \(maxFound.index) had the most calories: \(maxFound.total)")
     } else {
         print("Oops, no max. Must've been an empty list or they're all invalid lines.")
     }
+    
+    // For Day 1 bonus
+    let topThreeElves = finalState.elfCalories.sorted { $0 > $1 }.prefix(3)
+    let sumOfTopThree = topThreeElves.reduce(0, +)
+    print("The top three elves had calories of \(topThreeElves) and a sum of \(sumOfTopThree)")
 }
