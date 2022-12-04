@@ -11,6 +11,8 @@
 		609A71E8293D5C320075AC80 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 609A71E7293D5C320075AC80 /* ViewController.swift */; };
 		609A71EA293D5C340075AC80 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 609A71E9293D5C340075AC80 /* Assets.xcassets */; };
 		609A71ED293D5C340075AC80 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 609A71EB293D5C340075AC80 /* Main.storyboard */; };
+		609A71F5293D5C3D0075AC80 /* Day1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 609A71F4293D5C3D0075AC80 /* Day1.swift */; };
+		609A71F7293D5C4B0075AC80 /* day1-input.txt in Resources */ = {isa = PBXBuildFile; fileRef = 609A71F6293D5C4B0075AC80 /* day1-input.txt */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -20,6 +22,8 @@
 		609A71E9293D5C340075AC80 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		609A71EC293D5C340075AC80 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		609A71EE293D5C340075AC80 /* AdventOfCode_2022.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = AdventOfCode_2022.entitlements; sourceTree = "<group>"; };
+		609A71F4293D5C3D0075AC80 /* Day1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Day1.swift; sourceTree = "<group>"; };
+		609A71F6293D5C4B0075AC80 /* day1-input.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "day1-input.txt"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,6 +61,8 @@
 				609A71E9293D5C340075AC80 /* Assets.xcassets */,
 				609A71EB293D5C340075AC80 /* Main.storyboard */,
 				609A71EE293D5C340075AC80 /* AdventOfCode_2022.entitlements */,
+				609A71F4293D5C3D0075AC80 /* Day1.swift */,
+				609A71F6293D5C4B0075AC80 /* day1-input.txt */,
 			);
 			path = "AdventOfCode-2022";
 			sourceTree = "<group>";
@@ -119,6 +125,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				609A71F7293D5C4B0075AC80 /* day1-input.txt in Resources */,
 				609A71EA293D5C340075AC80 /* Assets.xcassets in Resources */,
 				609A71ED293D5C340075AC80 /* Main.storyboard in Resources */,
 			);
@@ -132,6 +139,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				609A71E8293D5C320075AC80 /* ViewController.swift in Sources */,
+				609A71F5293D5C3D0075AC80 /* Day1.swift in Sources */,
 				609A71E6293D5C320075AC80 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
